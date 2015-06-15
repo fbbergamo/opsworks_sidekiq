@@ -32,7 +32,7 @@ node[:deploy].each do |application, deploy|
   end
 
   execute "restart sidekiq" do
-    restart_command "sleep #{deploy[:sleep_before_restart]} && #{node[:sidekiq][application][:restart_command]}"
+    command "sleep #{deploy[:sleep_before_restart]} && #{node[:sidekiq][application][:restart_command]}"
   end
 
 end
