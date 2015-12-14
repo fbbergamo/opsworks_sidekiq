@@ -57,13 +57,13 @@ node[:deploy].each do |application, deploy|
         end
       end
     end
-
     template "#{node[:monit][:conf_dir]}/sidekiq_#{application}.monitrc" do
       mode 0644
       source 'sidekiq_monitrc.erb'
       variables(deploy: deploy,
                 application: application,
                 workers: workers,
+                required_path: node[:sidekiq][application][:required_path],
                 syslog: node[:sidekiq][application][:syslog],
                 environment_variables: OpsWorks::Escape.escape_double_quotes(deploy[:environment_variables]))
       notifies :reload, resources(service: 'monit'), :immediately
