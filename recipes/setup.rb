@@ -27,7 +27,7 @@ node[:deploy].each do |application, deploy|
   end
 
   if node[:sidekiq][application]
-    workers = node[:sidekiq][application].to_hash.reject { |k, _v| k.to_s =~ /restart_command|syslog/ }
+    workers = node[:sidekiq][application].to_hash.reject { |k, _v| k.to_s =~ /restart_command|syslog|required_path/ }
     config_directory = "#{deploy[:deploy_to]}/shared/config"
 
     workers.each do |worker, options|
