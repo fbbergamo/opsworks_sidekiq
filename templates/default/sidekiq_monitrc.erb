@@ -4,7 +4,7 @@
   <% conf_file = "#{@deploy[:deploy_to]}/shared/config/sidekiq_#{worker}#{n+1}.yml" %>
   <% pid_file = "#{@deploy[:deploy_to]}/shared/pids/sidekiq_#{identifier}.pid" %>
   <% syslog = @syslog ? "2>&1 | logger -t sidekiq-#{identifier}" : '' %>
-  <% required_path = @required_path ||  @deploy[:current_path] %>
+  <% required_path = (@required_path || @deploy[:current_path]) %>
   <% environment_variables = @environment_variables.map{|key, value| "#{key}=#{value}"}.join(" ") %>
 
 check process sidekiq_<%= identifier %>
